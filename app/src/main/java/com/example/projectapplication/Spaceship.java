@@ -12,6 +12,7 @@ public class Spaceship {
     private Bitmap bitmapleft;
     private Bitmap bitmapright;
     private Bitmap bitmapdown;
+    private Bitmap bitmapup;
     public Bitmap currentBitmap;
     private float height;
     private float length;
@@ -36,11 +37,11 @@ public class Spaceship {
         length = screenX/10;
         height = screenY/10;
 
-        x = screenX / 2;
-        y = screenY / 2;
+        x = (screenX/2)-length/2;
+        y = (screenY/5)*4;
 
         shipSpeed = 350;
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipright);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipup);
 
         // stretch the bitmap to a size appropriate for the screen resolution
         bitmap = Bitmap.createScaledBitmap(bitmap,
@@ -48,8 +49,8 @@ public class Spaceship {
                 (int) (height),
                 false);
 
-        //  bitmapup = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipUp);
-        //  bitmapup = Bitmap.createScaledBitmap(bitmapup, (int) (length), (int) (height),false);
+          bitmapup = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipup);
+          bitmapup = Bitmap.createScaledBitmap(bitmapup, (int) (length), (int) (height),false);
 
         bitmapright = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipright);
         bitmapright = Bitmap.createScaledBitmap(bitmapright, (int) (length), (int) (height),false);
@@ -110,9 +111,13 @@ public class Spaceship {
         return x;
     }
 
+    public float getY() { return y; }
+
     public float getLength(){
         return length;
     }
+
+    public float getHeight() { return height; }
 
 
 

@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
 
         spaceGameView = new SpaceGameView(this, size.x, size.y);
         setContentView(spaceGameView);
+        // spaceGameView.setBackgroundResource(R.drawable.background);
 
     }
 

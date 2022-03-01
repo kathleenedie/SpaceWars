@@ -136,7 +136,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             paint.setColor(Color.argb(255,  255, 255, 255));
 
             //  draw the defender
-            canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), screenY /2 , paint);
+            canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY() , paint);
 
 
 
@@ -144,8 +144,10 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             // Draw the score and remaining lives
             // Change the brush color
             paint.setColor(Color.argb(255,  249, 129, 0));
-            paint.setTextSize(40);
-            canvas.drawText("Score: " + score + "   Lives: " + lives, 10,50, paint);
+            paint.setTextSize(60);
+            canvas.drawText("Score: " + score, canvas.getWidth()/50,50, paint);
+            canvas.drawText("Lives: " + lives, canvas.getWidth()/50*40, 50, paint);
+            canvas.drawText("Space Wars", canvas.getWidth()/2-30, 80, paint);
 
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
