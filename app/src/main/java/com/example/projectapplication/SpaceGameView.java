@@ -49,6 +49,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
     // Lives
     private int lives = 3;
     Spaceship spaceShip;
+    Alien alien;
 
     // This special constructor method runs
     public SpaceGameView(Context context, int x, int y) {
@@ -78,6 +79,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
     private void initLevel(){
 
         spaceShip = new Spaceship(context, screenX, screenY);
+        alien = new Alien(context, screenX, screenY);
 
     }
 
@@ -130,7 +132,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             canvas = ourHolder.lockCanvas();
 
             // Draw the background color
-            canvas.drawColor(Color.argb(255, 26, 128, 182));
+            canvas.drawColor(getResources().getColor(R.color.black));
 
             // Choose the brush color for drawing
             paint.setColor(Color.argb(255,  255, 255, 255));
@@ -138,16 +140,19 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             //  draw the defender
             canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY() , paint);
 
+            // draw aliens
+            canvas.drawBitmap(alien.getBitmap(), alien.getX(), alien.getY(), paint);
+            canvas.drawBitmap(alien.getBitmap(), alien.getX()/2, alien.getY()/2, paint);
+            canvas.drawBitmap(alien.getBitmap(), 400, 120, paint);
 
-
-
-            // Draw the score and remaining lives
             // Change the brush color
             paint.setColor(Color.argb(255,  249, 129, 0));
+
+            // Draw the score and remaining lives
             paint.setTextSize(60);
             canvas.drawText("Score: " + score, canvas.getWidth()/50,50, paint);
             canvas.drawText("Lives: " + lives, canvas.getWidth()/50*40, 50, paint);
-            canvas.drawText("Space Wars", canvas.getWidth()/2-30, 80, paint);
+            canvas.drawText("Space Wars", canvas.getWidth()/3, 100, paint);
 
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
