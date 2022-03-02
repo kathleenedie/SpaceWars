@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
+import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 
 
 public class MainActivity extends Activity {
@@ -23,7 +27,7 @@ public class MainActivity extends Activity {
 
 
         spaceGameView = new SpaceGameView(this, size.x, size.y);
-        // spaceGameView.setBackground(getDrawable(R.drawable.background));
+        // ViewCompat.setBackground(spaceGameView, getDrawable(R.drawable.background));
         setContentView(spaceGameView);
     }
 

@@ -34,7 +34,7 @@ public class Spaceship {
 
         rect = new RectF();
 
-        length = screenX/10;
+        length = screenX/8;
         height = screenY/10;
 
         x = (screenX/2)-length/2;

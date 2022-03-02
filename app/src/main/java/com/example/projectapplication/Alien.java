@@ -32,11 +32,11 @@ public class Alien {
 
         rect = new RectF();
 
-        length = screenX/20;
-        height = screenY/20;
+        length = screenX/15;
+        height = screenY/15;
 
-        x = (screenX/10)-length/2;
-        y = (screenY/5)*4;
+        x = screenX;
+        y = screenY;
 
         alienSpeed = 350;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.alien);
