@@ -5,11 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 
-public class Alien {
+public class Bullet {
 
     RectF rect;
     private Bitmap bitmap;
-    private Bitmap bitmapalien;
+    private Bitmap bitmapbullet;
 
     public Bitmap currentBitmap;
     private float height;
@@ -17,7 +17,7 @@ public class Alien {
     private float x;
     private float y;
 
-    private float AlienSpeed;
+    private float BulletSpeed;
     public final int STOPPED = 0;
     public final int LEFT = 1;
     public final int RIGHT = 2;
@@ -25,21 +25,21 @@ public class Alien {
     public final int DOWN = 4;
 
     ///maybe more movement than this
-    private int AlienMoving = STOPPED;
-    private int alienSpeed;
+    private int BulletMoving = STOPPED;
+    private int bulletSpeed;
 
-    public Alien(Context context, int screenX, int screenY){
+    public Bullet(Context context, int screenX, int screenY){
 
         rect = new RectF();
 
-        length = screenX/15;
-        height = screenY/15;
+        length = screenX/5;
+        height = screenY/6;
 
         x = screenX;
         y = screenY;
 
-        alienSpeed = 350;
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.alien);
+        bulletSpeed = 350;
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
 
         // stretch the bitmap to a size appropriate for the screen resolution
         bitmap = Bitmap.createScaledBitmap(bitmap,
@@ -47,36 +47,22 @@ public class Alien {
                 (int) (height),
                 false);
 
-        bitmapalien = BitmapFactory.decodeResource(context.getResources(), R.drawable.alien);
-        bitmapalien = Bitmap.createScaledBitmap(bitmapalien, (int) (length), (int) (height),false);
+        bitmapbullet = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
+        bitmapbullet= Bitmap.createScaledBitmap(bitmapbullet, (int) (length), (int) (height),false);
 
         // currentBitmap = bitmap;
     }
 
     public void setMovementState(int state){
-        AlienMoving = state;
+        BulletMoving = state;
     }
 
 
     public void update(long fps){
-        //  if(AlienMoving == LEFT){
-        //      x = x - AlienSpeed / fps;
-        //       currentBitmap = bitmapalien;
-        //   }
-        //    if(AlienMoving == RIGHT){
-        //        x = x + AlienSpeed / fps;
-        //        currentBitmap = bitmapalien;
+        //    if(BulletMoving == UP){
+        //        y = y - BulletSpeed / fps;
+        // currentBitmap = bitmapbullet;
         //    }
-        //    if(AlienMoving == UP){
-        //        y = y - AlienSpeed / fps;
-        // currentBitmap = bitmapalien;
-
-        //    }
-
-        //    if(AlienMoving == DOWN){
-        //        y=y + AlienSpeed / fps;
-        //   currentBitmap = bitmapalien;
-
         //   }
 
         rect.top = y;
@@ -108,4 +94,3 @@ public class Alien {
 
     public float getHeight() { return height; }
 }
-

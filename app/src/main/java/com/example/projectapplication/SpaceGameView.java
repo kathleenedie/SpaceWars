@@ -8,12 +8,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -61,6 +57,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
     Spaceship spaceShip;
     Alien alien;
     StartButton startButton;
+    Bullet bullet;
 
     // This special constructor method runs
     public SpaceGameView(Context context, int x, int y) {
@@ -91,6 +88,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         spaceShip = new Spaceship(context, screenX, screenY);
         alien = new Alien(context, screenX, screenY);
         startButton = new StartButton(context, screenX, screenY);
+        bullet = new Bullet(context, screenX, screenY);
 
     }
 
@@ -163,11 +161,18 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             //  draw the defender
             canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY() , paint);
 
+            // draw bullets
+            canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/20*14, paint);
+            canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/20*13, paint);
+            canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/20*12, paint);
+
             // draw aliens
             canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*1, alien.getY()/10*2, paint);
             canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*3, alien.getY()/10*4, paint);
             canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*8, alien.getY()/10*3, paint);
-            canvas.drawBitmap(alien.getBitmap(), alien.getX()/2-alien.getLength()/2, alien.getY()/10*6, paint);
+            canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*7, alien.getY()/20*10, paint);
+            canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*2, alien.getY()/20*14, paint);
+            canvas.drawBitmap(alien.getBitmap(), alien.getX()/2-alien.getLength()/2, alien.getY()/20*12, paint);
 
             // Change the brush color
             paint.setColor(Color.argb(255,  249, 129, 0));
