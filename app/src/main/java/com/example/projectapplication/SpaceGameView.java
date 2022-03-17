@@ -1,6 +1,7 @@
 package com.example.projectapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -89,6 +90,8 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         alien = new Alien(context, screenX, screenY);
         startButton = new StartButton(context, screenX, screenY);
         bullet = new Bullet(context, screenX, screenY);
+
+
 
     }
 

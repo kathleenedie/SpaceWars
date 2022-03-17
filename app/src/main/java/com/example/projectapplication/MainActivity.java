@@ -1,19 +1,17 @@
 package com.example.projectapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
-import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-
+import android.view.View;
 
 public class MainActivity extends Activity {
 
 
     SpaceGameView spaceGameView;
+    Intent gamePlayIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +25,18 @@ public class MainActivity extends Activity {
 
 
         spaceGameView = new SpaceGameView(this, size.x, size.y);
-        // ViewCompat.setBackground(spaceGameView, getDrawable(R.drawable.background));
         setContentView(spaceGameView);
-    }
+
+        // click listener startButton
+        // create intent x
+        // invoke intent when there is an onClick event
+
+    };
+
+    protected void launchSecondActivity(SpaceGameView spaceGameView){
+        gamePlayIntent = new Intent(this, GamePlayActivity.class);
+        startActivity(gamePlayIntent);
+    };
 
     // This method executes when the player starts the game
     @Override

@@ -17,6 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".GamePlayActivity"
+            android:label="ProjectApplication/activity2_GamePlayActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name=".GamePlayActivity"
+                android:resource="com.example.projectapplication.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

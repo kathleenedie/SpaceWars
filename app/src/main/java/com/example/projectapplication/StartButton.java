@@ -1,9 +1,13 @@
 package com.example.projectapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 
 public class StartButton {
 
@@ -62,4 +66,11 @@ public class StartButton {
     }
 
     public float getHeight() { return height; }
+
+    public boolean onTouchEvent(MotionEvent motionEvent){
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK){
+            case MotionEvent.ACTION_DOWN:
+                MainActivity.launchSecondActivity();
+        }
+    };
 }
