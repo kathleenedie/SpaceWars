@@ -68,18 +68,4 @@ public class StartButton{
 
     public float getHeight() { return height; }
 
-//    public boolean onTouchEvent(MotionEvent motionEvent, Context context){
-//        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-//            return true;
-//        }
-//        else
-//            return false;
-//    }
-
-    public boolean onTouch(View v, MotionEvent event){
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
-            return true;
-        }
-        return false;
-    }
 }

@@ -157,6 +157,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             //  draw the defender
             canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY() , paint);
 
+            if (paused){
             // draw bullets
             canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/20*14, paint);
             canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/20*13, paint);
@@ -170,16 +171,20 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*2, alien.getY()/20*14, paint);
             canvas.drawBitmap(alien.getBitmap(), alien.getX()/2-alien.getLength()/2, alien.getY()/20*12, paint);
 
+            // Draw button on the screen
+            canvas.drawBitmap(startButton.getBitmap(), startButton.getX(), startButton.getY(), paint);
+
+            // Draw title on the screen
+            canvas.drawText("Space Wars", canvas.getWidth()/2, canvas.getHeight()/5, paintTitle);
+            }
+
             // Change the brush color
             paint.setColor(Color.argb(255,  249, 129, 0));
 
             // Draw the score and remaining lives
             canvas.drawText("Score: " + score, 30,70, paintScore);
             canvas.drawText("Lives: " + lives, canvas.getWidth()-30, 70, paintLives);
-            canvas.drawText("Space Wars", canvas.getWidth()/2, canvas.getHeight()/5, paintTitle);
 
-            // Draw button on the screen
-            canvas.drawBitmap(startButton.getBitmap(), startButton.getX(), startButton.getY(), paint);
 
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
@@ -211,6 +216,9 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         gameThread.start();
     }
 
+    public void setPaused(boolean paused){
+        this.paused = paused;
+    }
 
 
 }  // end class
