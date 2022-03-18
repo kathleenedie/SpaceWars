@@ -33,8 +33,12 @@ public class MainActivity extends Activity {
         spaceGameView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                int eventType = motionEvent.getActionMasked();
+
+                if (eventType == MotionEvent.ACTION_DOWN){
                 launchSecondActivity();
-                return true;
+                return true;}
+                return false;
             }
         });
     };
