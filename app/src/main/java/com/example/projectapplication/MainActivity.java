@@ -26,34 +26,29 @@ public class MainActivity extends Activity {
         Point size = new Point();
         display.getSize(size);
 
-
         spaceGameView = new SpaceGameView(this, size.x, size.y);
         setContentView(spaceGameView);
 
-        spaceGameView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                int eventType = motionEvent.getActionMasked();
 
-                if (eventType == MotionEvent.ACTION_DOWN){
-                launchSecondActivity();
-                return true;}
-                return false;
-            }
-        });
     };
-
-    public void launchSecondActivity(){
-        gamePlayIntent = new Intent(this, GamePlayActivity.class);
-        startActivity(gamePlayIntent);
-        Log.i("activity", "Second activity started");
-    }
 
     // This method executes when the player starts the game
     @Override
     protected void onResume(){
         super.onResume();
 
+        // set a listener to detect when an on touch event occurs, which is the trigger for starting the second activity.
+        spaceGameView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int eventType = motionEvent.getActionMasked();
+
+                if (eventType == MotionEvent.ACTION_DOWN){
+                    launchSecondActivity();
+                    return true;}
+                return false;
+            }
+        });
         // Tell the gameView resume method to execute
         spaceGameView.resume();
     }
@@ -65,5 +60,11 @@ public class MainActivity extends Activity {
 
         // Tell the gameView pause method to execute
         spaceGameView.pause();
+    }
+
+    public void launchSecondActivity(){
+        gamePlayIntent = new Intent(this, GamePlayActivity.class);
+        startActivity(gamePlayIntent);
+        Log.i("activity", "Second activity started");
     }
 };
