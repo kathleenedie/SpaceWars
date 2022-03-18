@@ -23,7 +23,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name=".GamePlayActivity"
-                android:resource="com.example.projectapplication.MainActivity"/>
+                android:value="com.example.projectapplication.MainActivity"/>
         </activity>
     </application>
 

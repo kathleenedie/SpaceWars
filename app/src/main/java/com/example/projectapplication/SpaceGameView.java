@@ -11,6 +11,7 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import java.io.IOException;
 
@@ -90,9 +91,6 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         alien = new Alien(context, screenX, screenY);
         startButton = new StartButton(context, screenX, screenY);
         bullet = new Bullet(context, screenX, screenY);
-
-
-
     }
 
 
@@ -131,11 +129,6 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         //checkCollisions
 
     }
-
-
-
-
-
 
     private void draw(){
         // Make sure our drawing surface is valid or we crash

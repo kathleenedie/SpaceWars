@@ -6,10 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
-public class StartButton {
+public class StartButton{
 
     RectF rect;
     private Bitmap bitmap;
@@ -67,10 +68,18 @@ public class StartButton {
 
     public float getHeight() { return height; }
 
-    public boolean onTouchEvent(MotionEvent motionEvent){
-        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK){
-            case MotionEvent.ACTION_DOWN:
-                MainActivity.launchSecondActivity();
+//    public boolean onTouchEvent(MotionEvent motionEvent, Context context){
+//        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+//            return true;
+//        }
+//        else
+//            return false;
+//    }
+
+    public boolean onTouch(View v, MotionEvent event){
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            return true;
         }
-    };
+        return false;
+    }
 }

@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class MainActivity extends Activity {
 
 
     SpaceGameView spaceGameView;
+    StartButton startButton;
     Intent gamePlayIntent;
 
     @Override
@@ -27,20 +30,24 @@ public class MainActivity extends Activity {
         spaceGameView = new SpaceGameView(this, size.x, size.y);
         setContentView(spaceGameView);
 
-        // click listener startButton
-        // create intent x
-        // invoke intent when there is an onClick event
-
+        spaceGameView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                launchSecondActivity();
+                return true;
+            }
+        });
     };
 
-    protected void launchSecondActivity(SpaceGameView spaceGameView){
+    public void launchSecondActivity(){
         gamePlayIntent = new Intent(this, GamePlayActivity.class);
         startActivity(gamePlayIntent);
-    };
+        Log.i("activity", "Second activity started");
+    }
 
     // This method executes when the player starts the game
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
 
         // Tell the gameView resume method to execute
@@ -55,4 +62,4 @@ public class MainActivity extends Activity {
         // Tell the gameView pause method to execute
         spaceGameView.pause();
     }
-}
+};
