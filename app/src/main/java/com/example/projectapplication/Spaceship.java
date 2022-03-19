@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class Spaceship {
 
@@ -30,15 +32,15 @@ public class Spaceship {
     private int SpaceShipMoving = STOPPED;
     private int shipSpeed;
 
-    public Spaceship(Context context, int screenX, int screenY){
+    public Spaceship(Context context, int screenX, int screenY) {
 
         rect = new RectF();
 
-        length = screenX/8;
-        height = screenY/10;
+        length = screenX / 8;
+        height = screenY / 10;
 
-        x = (screenX/2)-length/2;
-        y = (screenY/5)*4;
+        x = (screenX / 2) - length / 2;
+        y = (screenY / 5) * 4;
 
         shipSpeed = 350;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipup);
@@ -49,35 +51,36 @@ public class Spaceship {
                 (int) (height),
                 false);
 
-          bitmapup = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipup);
-          bitmapup = Bitmap.createScaledBitmap(bitmapup, (int) (length), (int) (height),false);
+        bitmapup = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipup);
+        bitmapup = Bitmap.createScaledBitmap(bitmapup, (int) (length), (int) (height), false);
 
         bitmapright = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipright);
-        bitmapright = Bitmap.createScaledBitmap(bitmapright, (int) (length), (int) (height),false);
+        bitmapright = Bitmap.createScaledBitmap(bitmapright, (int) (length), (int) (height), false);
 
         bitmapleft = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipleft);
-        bitmapleft = Bitmap.createScaledBitmap(bitmapleft, (int) (length), (int) (height),false);
+        bitmapleft = Bitmap.createScaledBitmap(bitmapleft, (int) (length), (int) (height), false);
 
         bitmapdown = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipdown);
-        bitmapdown = Bitmap.createScaledBitmap(bitmapdown, (int) (length), (int) (height),false);
+        bitmapdown = Bitmap.createScaledBitmap(bitmapdown, (int) (length), (int) (height), false);
 
-        // currentBitmap = bitmap;
+        currentBitmap = bitmap;
     }
-
-    public void setMovementState(int state){
-        SpaceShipMoving = state;
-    }
-
 
     public void update(long fps){
-        //  if(SpaceShipMoving == LEFT){
-        //      x = x - SpaceShipSpeed / fps;
-        //       currentBitmap = bitmapleft;
-        //   }
-        //    if(SpaceShipMoving == RIGHT){
-        //        x = x + SpaceShipSpeed / fps;
-        //        currentBitmap = bitmapright;
-        //    }
+      float screenX = getX();
+
+        if(SpaceShipMoving == LEFT){
+            x = x - SpaceShipSpeed / fps;
+            currentBitmap = bitmapleft;
+            if ((x+length)<=0)
+                x = screenX;
+            }
+        if(SpaceShipMoving == RIGHT){
+            x = x + SpaceShipSpeed / fps;
+            currentBitmap = bitmapright;
+            if (x>=screenX)
+                x = 0-length;
+              }
         //    if(SpaceShipMoving == UP){
         //        y = y - SpaceShipSpeed / fps;
         // currentBitmap = bitmapup;
@@ -111,13 +114,17 @@ public class Spaceship {
         return x;
     }
 
-    public float getY() { return y; }
+    public float getY() {
+        return y;
+    }
 
     public float getLength(){
         return length;
     }
 
-    public float getHeight() { return height; }
+    public float getHeight() {
+        return height;
+    }
 
 
 
