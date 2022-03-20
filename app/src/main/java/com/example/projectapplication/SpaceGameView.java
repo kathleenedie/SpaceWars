@@ -13,7 +13,15 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class SpaceGameView extends SurfaceView implements Runnable{
 
@@ -58,6 +66,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
     // Elements
     Spaceship spaceShip;
     Alien alien;
+    private List<Alien> alienSpawn = new ArrayList<Alien>();
     StartButton startButton;
     Bullet bullet;
 
@@ -91,6 +100,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         alien = new Alien(context, screenX, screenY);
         startButton = new StartButton(context, screenX, screenY);
         bullet = new Bullet(context, screenX, screenY);
+
     }
 
 
@@ -121,18 +131,16 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
 
 
-    private void update(){
+    private void update() {
 
         // call spaceShip
         spaceShip.update(fps);
 
-        // call alien
-        // alien.update(fps);
-        // if(alien.getIsVisible()){
-        //    alien.update(fps);
-        //}
-        //checkCollisions
+        if (alien.getIsVisible()) {
+            alien.update(fps);
+        }
 
+        //checkCollisions
     }
 
     private void draw(){
@@ -194,14 +202,16 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
             // Draw game play characters
             canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY(), paint);
-            canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*1, alien.getY()/10*2, paint);
+            if(alien.getIsVisible()){
+                canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*1, alien.getY()/10*2, paint);
+            }
 
 
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
 
-        }
-    }
+
+    }}
 
 
 

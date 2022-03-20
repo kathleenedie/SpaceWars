@@ -9,6 +9,8 @@ public class GamePlayActivity extends Activity {
 
     SpaceGameView spaceGameView;
 
+    // T be reused for instructions text view.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

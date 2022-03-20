@@ -17,7 +17,7 @@ public class Alien {
     private float x;
     private float y;
 
-    private float AlienSpeed;
+    private float alienSpeed;
     public final int STOPPED = 0;
     public final int LEFT = 1;
     public final int RIGHT = 2;
@@ -25,10 +25,10 @@ public class Alien {
     public final int DOWN = 4;
 
     ///maybe more movement than this
-    private int AlienMoving;
-    private int alienSpeed;
+    private int alienMoving = DOWN;
+    private int AlienSpeed;
 
-    private boolean isVisable;
+    private boolean isVisible;
 
     public Alien(Context context, int screenX, int screenY){
 
@@ -37,12 +37,12 @@ public class Alien {
         length = screenX/15;
         height = screenY/15;
 
-        isVisable = true;
+        isVisible = true;
 
         x = screenX;
         y = screenY;
 
-        alienSpeed = 100;
+        alienSpeed = 350;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.alien);
 
         // stretch the bitmap to a size appropriate for the screen resolution
@@ -52,30 +52,27 @@ public class Alien {
                 false);
 
         currentBitmap = bitmap;
-        AlienMoving = DOWN;
     }
 
-    public void setMovementState(int state){
-        AlienMoving = state;
-    }
+    // public void setMovementState(int state){
+    //      alienMoving = state;
+    //   }
 
     public void update(long fps){
-        //  if(AlienMoving == LEFT){
-        //      x = x - AlienSpeed / fps;
-        //       currentBitmap = bitmap;
-        //   }
-        //    if(AlienMoving == RIGHT){
-        //        x = x + AlienSpeed / fps;
-        //        currentBitmap = bitmap;
-        //    }
-        //    if(AlienMoving == UP){
-        //        y = y - AlienSpeed / fps;
-        // currentBitmap = bitmap;
-
-        //    }
-
-            if(AlienMoving == DOWN){
-                y = y + AlienSpeed / fps;
+          if(alienMoving == LEFT){
+              x = x - alienSpeed / fps;
+               currentBitmap = bitmap;
+           }
+            if(alienMoving == RIGHT){
+                x = x + alienSpeed / fps;
+                currentBitmap = bitmap;
+            }
+            if(alienMoving == UP){
+                y = y - alienSpeed / fps;
+         currentBitmap = bitmap;
+            }
+            if(alienMoving == DOWN){
+                y = y + alienSpeed / fps;
            currentBitmap = bitmap;
 
            }
@@ -86,7 +83,6 @@ public class Alien {
         rect.right = x + length;
 
     }
-
 
     public RectF getRect(){
         return rect;
@@ -101,18 +97,21 @@ public class Alien {
         return x;
     }
 
-    public float getY() { return y; }
+    public float getY() {
+        return y; }
 
     public float getLength(){
         return length;
     }
 
-    public float getHeight() { return height; }
+    public float getHeight() {
+        return height; }
 
-    public boolean getIsVisible(){return isVisable; }
+    public boolean getIsVisible(){
+        return isVisible; }
 
     public void setInvisible(){
-        isVisable = false;
+        isVisible = false;
     }
 }
 
