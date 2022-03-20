@@ -23,6 +23,8 @@ public class GamePlayActivity extends Activity {
         spaceGameView = new SpaceGameView(this, size.x, size.y);
         setContentView(spaceGameView);
         spaceGameView.setPaused(false);
+        onResume();
+
     }
 
     // This method executes when the player starts the game

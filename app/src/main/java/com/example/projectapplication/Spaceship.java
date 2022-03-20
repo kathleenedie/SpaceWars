@@ -27,7 +27,7 @@ public class Spaceship {
     public final int DOWN = 4;
 
     ///maybe more movement than this
-    private int SpaceShipMoving = STOPPED;
+    private int SpaceShipMoving = UP;
     private int shipSpeed;
 
     public Spaceship(Context context, int screenX, int screenY){

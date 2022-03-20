@@ -116,16 +116,21 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             if (timeThisFrame >= 1) {
                 fps = 1000 / timeThisFrame;
             }
-
         }
-
     }
 
 
 
     private void update(){
 
+        // call spaceShip
         spaceShip.update(fps);
+
+        // call alien
+        // alien.update(fps);
+        // if(alien.getIsVisible()){
+        //    alien.update(fps);
+        //}
         //checkCollisions
 
     }
@@ -154,10 +159,19 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             paintTitle.setTextAlign(Paint.Align.CENTER);
             paintTitle.setTextSize(120);
 
+
+
+            // Change the brush color
+            paint.setColor(Color.argb(255,  249, 129, 0));
+
+            // Draw the score and remaining lives
+            canvas.drawText("Score: " + score, 30,70, paintScore);
+            canvas.drawText("Lives: " + lives, canvas.getWidth()-30, 70, paintLives);
+
+            // splashscreen in main activity or when game is paused.
+            if (paused){
             //  draw the defender
             canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY() , paint);
-
-            if (paused){
             // draw bullets
             canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/20*14, paint);
             canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/20*13, paint);
@@ -171,23 +185,21 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*2, alien.getY()/20*14, paint);
             canvas.drawBitmap(alien.getBitmap(), alien.getX()/2-alien.getLength()/2, alien.getY()/20*12, paint);
 
-            // Draw button on the screen
+            // Draw start button on the screen
             canvas.drawBitmap(startButton.getBitmap(), startButton.getX(), startButton.getY(), paint);
 
             // Draw title on the screen
             canvas.drawText("Space Wars", canvas.getWidth()/2, canvas.getHeight()/5, paintTitle);
             }
 
-            // Change the brush color
-            paint.setColor(Color.argb(255,  249, 129, 0));
-
-            // Draw the score and remaining lives
-            canvas.drawText("Score: " + score, 30,70, paintScore);
-            canvas.drawText("Lives: " + lives, canvas.getWidth()-30, 70, paintLives);
+            // Draw game play characters
+            canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY(), paint);
+            canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*1, alien.getY()/10*2, paint);
 
 
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
+
         }
     }
 

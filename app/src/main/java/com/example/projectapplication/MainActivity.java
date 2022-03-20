@@ -13,7 +13,6 @@ public class MainActivity extends Activity {
 
 
     SpaceGameView spaceGameView;
-    StartButton startButton;
     Intent gamePlayIntent;
 
     @Override
