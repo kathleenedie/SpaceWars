@@ -42,8 +42,9 @@ public class Spaceship {
         x = (screenX / 2) - length / 2;
         y = (screenY / 5) * 4;
 
-        shipSpeed = 350;
+        SpaceShipSpeed = 350;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipup);
+
 
         // stretch the bitmap to a size appropriate for the screen resolution
         bitmap = Bitmap.createScaledBitmap(bitmap,
@@ -65,7 +66,10 @@ public class Spaceship {
 
         currentBitmap = bitmap;
     }
-
+    // This method will be used to change/set if the ship is going left, right or nowhere
+    public static void setMovementState(int state){
+        SpaceShipMoving = state;
+    }
     public void update(long fps){
       float screenX = getX();
 

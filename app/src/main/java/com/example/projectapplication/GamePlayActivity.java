@@ -8,18 +8,20 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.content.Intent;
+import android.util.Log;
+import android.content.Context;
 
 public class GamePlayActivity extends Activity {
 
     SpaceGameView spaceGameView;
-    Spaceship spaceship;
-    private void initLevel(){
-
-        spaceShip = new Spaceship(context, screenX, screenY);
-    }
-
-
-
+    Spaceship spaceShip;
+//    private Object Spaceship;
+//
+//    private void initLevel(){
+//
+//        Spaceship = new Spaceship(Context, screenX, screenY);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class GamePlayActivity extends Activity {
         spaceGameView.resume();
     }
 
-    // This method executes when the player quits the game
+//    // This method executes when the player quits the game
     @Override
     protected void onPause() {
         super.onPause();
@@ -54,30 +56,42 @@ public class GamePlayActivity extends Activity {
         // Tell the gameView pause method to execute
         spaceGameView.pause();
     }
-    public static void setMovementState(int state){
-        SpaceShipMoving = state;
-    }
 
-    // on touch event to move spaceship left and right
-    public boolean onTouchEvent(Context context MotionEvent motionEvent) {
-        int eventType = motionEvent.getActionMasked();
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
 
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
 
+            // Player has touched the screen
             case MotionEvent.ACTION_DOWN:
 
-                float screenY = getY();
-                if (motionEvent.getY() > screenY - screenY / 2) {
-                    setMovementState(Spaceship.RIGHT);
-                } else {
-                    setMovementState(Spaceship.LEFT);
+                if(motionEvent.getY() > screenY - screenY / 2) {
+                    if (motionEvent.getX() > screenX / 2) {
+                        Spaceship.setMovementState(Spaceship.RIGHT);
+                    } else {
+                        Spaceship.setMovementState(Spaceship.LEFT);
+                    }
+
                 }
 
-            case MotionEvent.ACTION_UP:
-
-                setMovementState(Spaceship.STOPPED);
+//                if(motionEvent.getY() < screenY - screenY / 8) {
+//                    // Shots fired
+//                    if(bullet.shoot(Spaceship.getX()+
+//                            Spaceship.getLength()/2,screenY,bullet.UP)){
+//                    }
+//                }
                 break;
+
+            // Player has removed finger from screen
+            case MotionEvent.ACTION_UP:
+                if(motionEvent.getY() > screenY - screenY / 10) {
+                    Spaceship.setMovementState(Spaceship.STOPPED);
+                }
+
+                break;
+
         }
+
         return true;
     }
 }
