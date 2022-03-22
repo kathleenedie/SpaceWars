@@ -61,7 +61,7 @@ public class Spaceship {
         bitmapdown = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipdown);
         bitmapdown = Bitmap.createScaledBitmap(bitmapdown, (int) (length), (int) (height),false);
 
-        // currentBitmap = bitmap;
+       //  currentBitmap = bitmap;
     }
 
     public void setMovementState(int state){
@@ -70,25 +70,25 @@ public class Spaceship {
 
 
     public void update(long fps){
-        //  if(SpaceShipMoving == LEFT){
-        //      x = x - SpaceShipSpeed / fps;
-        //       currentBitmap = bitmapleft;
-        //   }
-        //    if(SpaceShipMoving == RIGHT){
-        //        x = x + SpaceShipSpeed / fps;
-        //        currentBitmap = bitmapright;
-        //    }
-        //    if(SpaceShipMoving == UP){
-        //        y = y - SpaceShipSpeed / fps;
-        // currentBitmap = bitmapup;
+          if(SpaceShipMoving == LEFT){
+              x = x - SpaceShipSpeed / fps;
+               currentBitmap = bitmapleft;
+           }
+            if(SpaceShipMoving == RIGHT){
+                x = x + SpaceShipSpeed / fps;
+                currentBitmap = bitmapright;
+            }
+            if(SpaceShipMoving == UP){
+                y = y - SpaceShipSpeed / fps;
+         currentBitmap = bitmapup;
 
-        //    }
+            }
 
-        //    if(SpaceShipMoving == DOWN){
-        //        y=y + SpaceShipSpeed / fps;
-        //   currentBitmap = bitmapdown;
+            if(SpaceShipMoving == DOWN){
+                y=y + SpaceShipSpeed / fps;
+           currentBitmap = bitmapdown;
 
-        //   }
+           }
 
         rect.top = y;
         rect.bottom = y + height;

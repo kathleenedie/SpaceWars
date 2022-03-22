@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -126,6 +127,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
     private void update(){
 
         spaceShip.update(fps);
+        bullet.update(fps);
         //checkCollisions
 
     }
@@ -156,6 +158,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
             //  draw the defender
             canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY() , paint);
+            canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2, bullet.getY()/2, paint);
 
             if (paused){
             // draw bullets
@@ -218,6 +221,48 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
     public void setPaused(boolean paused){
         this.paused = paused;
+    }
+
+//    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+
+            // Player has touched the screen
+            case MotionEvent.ACTION_DOWN:
+
+                paused = false;
+
+                if(motionEvent.getY() > screenY - screenY / 8) {
+                    if (motionEvent.getX() > screenX / 2) {
+                        spaceShip.setMovementState(spaceShip.RIGHT);
+                        Log.i("on touch","youre touching me");
+                    } else {
+                        spaceShip.setMovementState(spaceShip.LEFT);
+                    }
+
+                }
+
+                if(motionEvent.getY() < screenY - screenY / 8) {
+                    // Shots fired
+                    if(bullet.shoot(spaceShip.getX()+
+                            spaceShip.getLength()/2,screenY,bullet.UP)){
+                    }
+                }
+                break;
+
+            // Player has removed finger from screen
+            case MotionEvent.ACTION_UP:
+
+                if(motionEvent.getY() > screenY - screenY / 10) {
+                    spaceShip.setMovementState(spaceShip.STOPPED);
+                }
+
+                break;
+
+        }
+
+        return true;
     }
 
 

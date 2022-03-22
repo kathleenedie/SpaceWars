@@ -26,19 +26,20 @@ public class Bullet {
 
     ///maybe more movement than this
     private int BulletMoving = STOPPED;
-    private int bulletSpeed;
+//    private int BulletSpeed;
+    private boolean isActive;
 
-    public Bullet(Context context, int screenX, int screenY){
+    public Bullet(Context context, int screenX, int screenY) {
 
         rect = new RectF();
 
-        length = screenX/5;
-        height = screenY/6;
+        length = screenX / 5;
+        height = screenY / 6;
 
         x = screenX;
         y = screenY;
 
-        bulletSpeed = 350;
+        BulletSpeed = 350;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
 
         // stretch the bitmap to a size appropriate for the screen resolution
@@ -47,23 +48,25 @@ public class Bullet {
                 (int) (height),
                 false);
 
-        bitmapbullet = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
-        bitmapbullet= Bitmap.createScaledBitmap(bitmapbullet, (int) (length), (int) (height),false);
+        isActive = true;
 
-        // currentBitmap = bitmap;
+//        bitmapbullet = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
+//        bitmapbullet = Bitmap.createScaledBitmap(bitmapbullet, (int) (length), (int) (height), false);
+
+       // currentBitmap = bitmap;
     }
 
-    public void setMovementState(int state){
+    public void setMovementState(int state) {
         BulletMoving = state;
     }
 
 
-    public void update(long fps){
-        //    if(BulletMoving == UP){
-        //        y = y - BulletSpeed / fps;
-        // currentBitmap = bitmapbullet;
-        //    }
-        //   }
+    public void update(long fps) {
+        if (BulletMoving == UP) {
+            y = y - BulletSpeed / fps;
+        //    currentBitmap = bitmapbullet;
+        }
+
 
         rect.top = y;
         rect.bottom = y + height;
@@ -71,6 +74,7 @@ public class Bullet {
         rect.right = x + length;
 
     }
+
 
 
     public RectF getRect(){
@@ -93,4 +97,83 @@ public class Bullet {
     }
 
     public float getHeight() { return height; }
-}
+
+
+
+    // Which way is it shooting
+//    public final int UP = 0;
+//    public final int DOWN = 1;
+
+    // Going nowhere
+    int heading = -1;
+//    float speed =  350;
+//
+//    private int width = 1;
+//    private int height;
+
+
+
+//    public void bullet(int screenY) {
+//
+//        height = screenY / 20;
+//        isActive = false;
+//
+//        rect = new RectF();
+//    }
+
+//    public RectF getRect(){
+//        return  rect;
+//    }
+
+    public boolean getStatus(){
+        return isActive;
+    }
+
+    public void setInactive(){
+        isActive = false;
+    }
+
+    public float getImpactPointY(){
+        if (heading == DOWN){
+            return y + height;
+        }else{
+            return  y;
+        }
+
+    }
+    public boolean shoot(float startX, float startY, int direction) {
+        if (!isActive) {
+            x = startX;
+            y = startY;
+            heading = direction;
+            isActive = true;
+            return true;
+        }
+
+        // Bullet already active
+        return false;
+
+//    public void update(long fps) {
+//
+//        // Just move up or down
+//        if (heading == UP) {
+//            y = y - speed / fps;
+//        } else {
+//            y = y + speed / fps;
+//        }
+
+        // Update rect
+//        rect.left = x;
+//        rect.right = x + length;
+//        rect.top = y;
+//        rect.bottom = y + height;
+
+
+//        bullet = new Bullet(context, screenX, screenY);
+//        // Update the players bullet
+//        if (BulletMoving.state) {
+//            bitmapbullet.update(fps);
+//        }
+
+
+    }}
