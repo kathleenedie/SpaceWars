@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -105,7 +106,8 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         bullet = new Bullet(context, screenX, screenY);
         alien = new Alien(context, spawner.nextInt(1000), spawner.nextInt(1000), screenX, screenY);
         numAliens = 0;
-        for(int column = 0; column < 6; column++) {
+        for(int column = 0; column < 10; column++) {
+            Log.i("alien spawning", "alien being spawned");
             aliens[numAliens] = new Alien(context, -1, column, screenX, screenY);
             numAliens++;
         }
@@ -211,7 +213,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
                 canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY(), paint);
                 for (int i = 0; i < numAliens; i++) {
                     if (aliens[i].getIsVisible()) {
-                        Log.i("Alien", "Alien being spawned");
+                        Log.i("Alien", "Alien being rendered");
                         canvas.drawBitmap(aliens[i].getBitmap(), aliens[i].getX(), aliens[i].getY(), paint);
                     }
                 }
@@ -249,5 +251,33 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         this.paused = paused;
     }
 
+    public boolean onTouchEvent(MotionEvent motionEvent){
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
 
+            // Player has touched the screen
+            case MotionEvent.ACTION_DOWN:
+
+                paused = false;
+
+                if(motionEvent.getY() > screenY - screenY / 8) {
+                    if (motionEvent.getX() > screenX / 2) {
+                        spaceShip.setMovementState(spaceShip.RIGHT);
+                    } else {
+                        spaceShip.setMovementState(spaceShip.LEFT);
+                    }
+
+                }
+                break;
+
+            // Player has removed finger from screen
+            case MotionEvent.ACTION_UP:
+
+                if(motionEvent.getY() > screenY - screenY / 10) {
+                    spaceShip.setMovementState(spaceShip.STOPPED);
+                }
+                break;
+        }
+
+        return true;
+    }
 }  // end class
