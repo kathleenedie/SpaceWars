@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 
 public class SpaceGameView extends SurfaceView implements Runnable{
 
@@ -66,9 +67,12 @@ public class SpaceGameView extends SurfaceView implements Runnable{
     // Elements
     Spaceship spaceShip;
     Alien alien;
-    private List<Alien> alienSpawn = new ArrayList<Alien>();
+    Alien[] aliens = new Alien[50];
+    int numAliens = 0;
     StartButton startButton;
     Bullet bullet;
+
+    Random spawner = new Random();
 
     // This special constructor method runs
     public SpaceGameView(Context context, int x, int y) {
@@ -97,10 +101,14 @@ public class SpaceGameView extends SurfaceView implements Runnable{
     private void initLevel(){
 
         spaceShip = new Spaceship(context, screenX, screenY);
-        alien = new Alien(context, screenX, screenY);
         startButton = new StartButton(context, screenX, screenY);
         bullet = new Bullet(context, screenX, screenY);
-
+        alien = new Alien(context, spawner.nextInt(1000), spawner.nextInt(1000), screenX, screenY);
+        numAliens = 0;
+        for(int column = 0; column < 6; column++) {
+            aliens[numAliens] = new Alien(context, -1, column, screenX, screenY);
+            numAliens++;
+        }
     }
 
 
@@ -113,6 +121,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
             // Update the frame
             if(!paused){
+                Log.i("Game update", "Game update being called");
                 update();
             }
 
@@ -136,12 +145,13 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         // call spaceShip
         spaceShip.update(fps);
 
-        if (alien.getIsVisible()) {
-            alien.update(fps);
+        for(int i = 0; i < numAliens; i++) {
+            if (aliens[i].getIsVisible()) {
+                aliens[i].update(fps);
+            }
         }
-
-        //checkCollisions
     }
+        //checkCollisions
 
     private void draw(){
         // Make sure our drawing surface is valid or we crash
@@ -149,8 +159,6 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             // Lock the canvas ready to draw
             canvas = ourHolder.lockCanvas();
 
-            // Draw the background color
-            //canvas.drawColor(getResources().getColor(R.color.black));
             Bitmap backgroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background);
             canvas.drawBitmap(backgroundBitmap, 0, 0, paint);
 
@@ -166,8 +174,6 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             paintTitle.setColor(getResources().getColor(R.color.lives_score));
             paintTitle.setTextAlign(Paint.Align.CENTER);
             paintTitle.setTextSize(120);
-
-
 
             // Change the brush color
             paint.setColor(Color.argb(255,  249, 129, 0));
@@ -201,16 +207,17 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             }
 
             // Draw game play characters
-            canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY(), paint);
-            if(alien.getIsVisible()){
-                canvas.drawBitmap(alien.getBitmap(), alien.getX()/10*1, alien.getY()/10*2, paint);
+            if(!paused) {
+                canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY(), paint);
+                for (int i = 0; i < numAliens; i++) {
+                    if (aliens[i].getIsVisible()) {
+                        Log.i("Alien", "Alien being spawned");
+                        canvas.drawBitmap(aliens[i].getBitmap(), aliens[i].getX(), aliens[i].getY(), paint);
+                    }
+                }
             }
-
-
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
-
-
     }}
 
 

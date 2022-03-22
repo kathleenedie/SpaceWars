@@ -10,8 +10,8 @@ public class Alien {
 
     RectF rect;
     private Bitmap bitmap;
-
     public Bitmap currentBitmap;
+
     private float height;
     private float length;
     private float x;
@@ -30,7 +30,9 @@ public class Alien {
 
     private boolean isVisible;
 
-    public Alien(Context context, int screenX, int screenY){
+    Random spawner = new Random();
+
+    public Alien(Context context, int row, int column, int screenX, int screenY){
 
         rect = new RectF();
 
@@ -39,10 +41,10 @@ public class Alien {
 
         isVisible = true;
 
-        x = screenX;
-        y = screenY;
+        x = spawner.nextInt(1000);
+        y = -1;
 
-        alienSpeed = 350;
+        alienSpeed = 100;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.alien);
 
         // stretch the bitmap to a size appropriate for the screen resolution
