@@ -71,11 +71,11 @@ public class Alien {
             }
             if(alienMoving == UP){
                 y = y - alienSpeed / fps;
-         currentBitmap = bitmap;
+                currentBitmap = bitmap;
             }
             if(alienMoving == DOWN){
                 y = y + alienSpeed / fps;
-           currentBitmap = bitmap;
+                currentBitmap = bitmap;
 
            }
 

@@ -29,18 +29,18 @@ public class MainActivity extends Activity {
         setContentView(spaceGameView);
 
         // set a listener to detect when an on touch event occurs, which is the trigger for starting the second activity.
-        spaceGameView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                int eventType = motionEvent.getActionMasked();
-
-                if (eventType == MotionEvent.ACTION_DOWN){
-                    onResume();
-                    spaceGameView.setPaused(false);
-                    return true;}
-                return false;
-            }
-        });
+//        spaceGameView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                int eventType = motionEvent.getActionMasked();
+//
+//                if (eventType == MotionEvent.ACTION_DOWN){
+//                    onResume();
+//                    spaceGameView.setPaused(false);
+//                    return true;}
+//                return false;
+//            }
+////        });
 
     };
 

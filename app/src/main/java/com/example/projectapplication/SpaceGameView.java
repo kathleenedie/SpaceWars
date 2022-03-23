@@ -107,7 +107,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         alien = new Alien(context, spawner.nextInt(1000), spawner.nextInt(1000), screenX, screenY);
         numAliens = 0;
         for(int column = 0; column < 10; column++) {
-            Log.i("alien spawning", "alien being spawned");
+            //Log.i("alien spawning", "alien being spawned");
             aliens[numAliens] = new Alien(context, -1, column, screenX, screenY);
             numAliens++;
         }
@@ -123,7 +123,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
             // Update the frame
             if(!paused){
-                Log.i("Game update", "Game update being called");
+                //Log.i("Game update", "Game update being called");
                 update();
             }
 
@@ -140,12 +140,11 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         }
     }
 
-
-
     private void update() {
 
         // call spaceShip
         spaceShip.update(fps);
+        bullet.update(fps);
 
         for(int i = 0; i < numAliens; i++) {
             if (aliens[i].getIsVisible()) {
@@ -211,9 +210,10 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             // Draw game play characters
             if(!paused) {
                 canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY(), paint);
+                canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/6*4, paint);
                 for (int i = 0; i < numAliens; i++) {
                     if (aliens[i].getIsVisible()) {
-                        Log.i("Alien", "Alien being rendered");
+                        //Log.i("Alien", "Alien being rendered");
                         canvas.drawBitmap(aliens[i].getBitmap(), aliens[i].getX(), aliens[i].getY(), paint);
                     }
                 }
@@ -237,14 +237,16 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
     }
 
-
-
     // If SpaceInvadersActivity is started then
     // start our thread.
     public void resume() {
         playing = true;
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    public boolean getPaused(){
+        return paused;
     }
 
     public void setPaused(boolean paused){
@@ -257,23 +259,29 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             // Player has touched the screen
             case MotionEvent.ACTION_DOWN:
 
-                paused = false;
+                if(getPaused()==true){
+                    setPaused(false);
+                    Log.i("First click", "First click on game resume");
+                }
 
-                if(motionEvent.getY() > screenY - screenY / 8) {
+                if(motionEvent.getY() > screenY - screenY / 4) {
                     if (motionEvent.getX() > screenX / 2) {
                         spaceShip.setMovementState(spaceShip.RIGHT);
+                        spaceShip.update(fps);
+                        Log.i("Subsequent click", "right side click");
                     } else {
                         spaceShip.setMovementState(spaceShip.LEFT);
+                        Log.i("Subsequent click", "left side click");
                     }
 
                 }
                 break;
-
-            // Player has removed finger from screen
+                // Player has removed finger from screen
             case MotionEvent.ACTION_UP:
 
-                if(motionEvent.getY() > screenY - screenY / 10) {
+                if(motionEvent.getY() > screenY - screenY / 4) {
                     spaceShip.setMovementState(spaceShip.STOPPED);
+                    Log.i("Subsequent click release", "motion stopped");
                 }
                 break;
         }
