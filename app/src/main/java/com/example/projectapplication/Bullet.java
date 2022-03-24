@@ -24,7 +24,6 @@ public class Bullet {
 
     ///maybe more movement than this
     private int BulletMoving = STOPPED;
-    // private int BulletSpeed;
     private boolean isActive;
 
     public Bullet(Context context, int screenX, int screenY) {
@@ -52,6 +51,7 @@ public class Bullet {
         bitmapbullet = Bitmap.createScaledBitmap(bitmapbullet, (int) (length), (int) (height), false);
 
          currentBitmap = bitmap;
+
     }
 
     public void setMovementState(int state) {
@@ -65,7 +65,6 @@ public class Bullet {
             y = y - BulletSpeed / fps;
             currentBitmap = bitmapbullet;
         }
-
 
         rect.top = y;
         rect.bottom = y + height;
@@ -105,7 +104,6 @@ public class Bullet {
         isActive = false;
     }
 
-
     public boolean shoot(float startX, float startY, int direction) {
         if (!isActive) {
             x = startX;
@@ -119,3 +117,4 @@ public class Bullet {
         return false;
         
     }}
+

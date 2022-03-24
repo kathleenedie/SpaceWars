@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
+import android.util.Log;
+
 import java.util.Random;
 
 public class Alien {
@@ -42,7 +44,7 @@ public class Alien {
         isVisible = true;
 
         x = spawner.nextInt(1000);
-        y = -1;
+        y = spawner.nextInt(300);
 
         alienSpeed = 100;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.alien);
@@ -56,28 +58,28 @@ public class Alien {
         currentBitmap = bitmap;
     }
 
-    // public void setMovementState(int state){
-    //      alienMoving = state;
-    //   }
+     public void setMovementState(int state){
+          alienMoving = state;
+       }
 
     public void update(long fps){
-          if(alienMoving == LEFT){
+        if(alienMoving == LEFT){
               x = x - alienSpeed / fps;
                currentBitmap = bitmap;
            }
-            if(alienMoving == RIGHT){
-                x = x + alienSpeed / fps;
-                currentBitmap = bitmap;
-            }
-            if(alienMoving == UP){
-                y = y - alienSpeed / fps;
-                currentBitmap = bitmap;
-            }
-            if(alienMoving == DOWN){
-                y = y + alienSpeed / fps;
-                currentBitmap = bitmap;
+        if(alienMoving == RIGHT){
+            x = x + alienSpeed / fps;
+            currentBitmap = bitmap;
+        }
+        if(alienMoving == UP){
+            y = y - alienSpeed / fps;
+            currentBitmap = bitmap;
+        }
+        if(alienMoving == DOWN){
+            y = y + alienSpeed / fps;
+            currentBitmap = bitmap;
 
-           }
+       }
 
         rect.top = y;
         rect.bottom = y + height;
