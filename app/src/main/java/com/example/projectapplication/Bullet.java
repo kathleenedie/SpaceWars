@@ -97,26 +97,6 @@ public class Bullet {
 
     public float getHeight() { return height; }
 
-    // Going nowhere
-    int heading = -1;
-//    float speed =  350;
-//
-//    private int width = 1;
-//    private int height;
-
-
-//    public void bullet(int screenY) {
-//
-//        height = screenY / 20;
-//        isActive = false;
-//
-//        rect = new RectF();
-//    }
-
-//    public RectF getRect(){
-//        return  rect;
-//    }
-
     public boolean getStatus(){
         return isActive;
     }
@@ -124,13 +104,6 @@ public class Bullet {
     public void setInactive(){
         isActive = false;
     }
-
-//    public float getImpactPointY(){
-//        if (BulletMoving == DOWN){
-//            return y + height;
-//        }else{
-//            return  y;
-//        }
 
 
     public boolean shoot(float startX, float startY, int direction) {
@@ -144,28 +117,5 @@ public class Bullet {
 
         // Bullet already active
         return false;
-
-//    public void update(long fps) {
-//
-//        // Just move up or down
-//        if (heading == UP) {
-//            y = y - speed / fps;
-//        } else {
-//            y = y + speed / fps;
-//        }
-
-        // Update rect
-//        rect.left = x;
-//        rect.right = x + length;
-//        rect.top = y;
-//        rect.bottom = y + height;
-
-
-//        bullet = new Bullet(context, screenX, screenY);
-//        // Update the players bullet
-//        if (BulletMoving.state) {
-//            bitmapbullet.update(fps);
-//        }
-
-
+        
     }}
