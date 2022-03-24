@@ -63,7 +63,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
     public int score = 0;
 
     // Lives
-    private int lives = 3;
+    public int lives = 3;
 
     // Elements
     Spaceship spaceShip;
@@ -150,11 +150,12 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             if (aliens[i].getIsVisible()) {
                 aliens[i].update(fps);
             }
-            if (aliens[i].getY() > screenY - aliens[i].getHeight()
-                    || aliens[i].getY() < 0){
-
+            if (aliens[i].getY() > screenY - aliens[i].getHeight() || aliens[i].getY() < 0){
                 aliens[i].setMovementState(alien.STOPPED);
                 aliens[i].setInvisible();
+                while(lives > 0){
+                    lives--;
+                }
                 Log.i("Alien state is:", "stopped");
             }
         }
