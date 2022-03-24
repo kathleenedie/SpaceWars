@@ -106,10 +106,11 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         bullet = new Bullet(context, screenX, screenY);
         alien = new Alien(context, spawner.nextInt(1000), spawner.nextInt(1000), screenX, screenY);
         numAliens = 0;
-        for(int column = 0; column < 10; column++) {
+        for(int column = spawner.nextInt(10); column < 10; column++) {
+            for(int row = spawner.nextInt(5); row < 5; row ++ ){
             //Log.i("alien spawning", "alien being spawned");
             aliens[numAliens] = new Alien(context, -1, column, screenX, screenY);
-            numAliens++;
+            numAliens++;}
         }
     }
 
@@ -142,10 +143,13 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
     private void update() {
 
-        // call spaceShip
+        // call spaceShip update action
         spaceShip.update(fps);
+
+        // call bullet update action
         bullet.update(fps);
 
+        // call alien update action
         for(int i = 0; i < numAliens; i++) {
             if (aliens[i].getIsVisible()) {
                 aliens[i].update(fps);
@@ -159,8 +163,21 @@ public class SpaceGameView extends SurfaceView implements Runnable{
                 Log.i("Alien state is:", "stopped");
             }
         }
-    }
+
         //checkCollisions
+        if(bullet.getStatus()) {
+            for (int i = 0; i < numAliens; i++) {
+                if (aliens[i].getIsVisible()) {
+                    if (RectF.intersects(bullet.getRect(), aliens[i].getRect())) {
+                        aliens[i].setInvisible();
+                        bullet.setInactive();
+                        score = score + 10;
+                    }
+                }
+            }
+        }
+    }
+
 
     private void draw(){
         // Make sure our drawing surface is valid or we crash

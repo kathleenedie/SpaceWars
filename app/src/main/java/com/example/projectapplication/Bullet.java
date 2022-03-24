@@ -26,7 +26,7 @@ public class Bullet {
 
     ///maybe more movement than this
     private int BulletMoving = STOPPED;
-    private int bulletSpeed;
+    private boolean isActive;
 
     public Bullet(Context context, int screenX, int screenY){
 
@@ -38,7 +38,7 @@ public class Bullet {
         x = screenX;
         y = screenY;
 
-        bulletSpeed = 350;
+        BulletSpeed = 350;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
 
         // stretch the bitmap to a size appropriate for the screen resolution
@@ -50,7 +50,9 @@ public class Bullet {
         bitmapbullet = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
         bitmapbullet= Bitmap.createScaledBitmap(bitmapbullet, (int) (length), (int) (height),false);
 
-        // currentBitmap = bitmap;
+        isActive = true;
+         currentBitmap = bitmap;
+
     }
 
     public void setMovementState(int state){
@@ -59,11 +61,10 @@ public class Bullet {
 
 
     public void update(long fps){
-//            if(BulletMoving == UP){
-//                y = y - BulletSpeed / fps;
-//         currentBitmap = bitmapbullet;
-//            }
-//           }
+            if(BulletMoving == UP){
+                y = y - BulletSpeed / fps;
+         currentBitmap = bitmapbullet;
+            }
 
         rect.top = y;
         rect.bottom = y + height;
@@ -93,4 +94,12 @@ public class Bullet {
     }
 
     public float getHeight() { return height; }
+
+    public boolean getStatus(){
+        return isActive;
+    }
+
+    public void setInactive(){
+        isActive = false;
+    }
 }

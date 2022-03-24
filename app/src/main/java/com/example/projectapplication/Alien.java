@@ -44,7 +44,7 @@ public class Alien {
         isVisible = true;
 
         x = spawner.nextInt(1000);
-        y = -1;
+        y = spawner.nextInt(300);
 
         alienSpeed = 100;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.alien);
