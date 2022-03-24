@@ -273,8 +273,17 @@ public class SpaceGameView extends SurfaceView implements Runnable{
                         spaceShip.setMovementState(spaceShip.LEFT);
                         Log.i("Subsequent click", "left side click");
                     }
-
                 }
+                    if(motionEvent.getY() < screenY - screenY / 4) {
+                        // Shots fired
+                        bullet.setMovementState(bullet.UP);
+                        bullet.shoot(spaceShip.getX()+
+                                spaceShip.getLength()/2,screenY,bullet.UP);
+                        {
+                            Log.i("Subsequent click", "Bullet click");
+                        }
+                    }
+
                 break;
                 // Player has removed finger from screen
             case MotionEvent.ACTION_UP:
