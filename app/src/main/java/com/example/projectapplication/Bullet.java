@@ -59,11 +59,11 @@ public class Bullet {
 
 
     public void update(long fps){
-        //    if(BulletMoving == UP){
-        //        y = y - BulletSpeed / fps;
-        // currentBitmap = bitmapbullet;
-        //    }
-        //   }
+//            if(BulletMoving == UP){
+//                y = y - BulletSpeed / fps;
+//         currentBitmap = bitmapbullet;
+//            }
+//           }
 
         rect.top = y;
         rect.bottom = y + height;

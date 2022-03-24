@@ -150,6 +150,13 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             if (aliens[i].getIsVisible()) {
                 aliens[i].update(fps);
             }
+            if (aliens[i].getY() > screenY - aliens[i].getHeight()
+                    || aliens[i].getY() < 0){
+
+                aliens[i].setMovementState(alien.STOPPED);
+                aliens[i].setInvisible();
+                Log.i("Alien state is:", "stopped");
+            }
         }
     }
         //checkCollisions
@@ -251,6 +258,13 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
     public void setPaused(boolean paused){
         this.paused = paused;
+    }
+
+    public int getLives(){
+        return lives;
+    }
+    public void setLives(){
+        this.lives = lives;
     }
 
     public boolean onTouchEvent(MotionEvent motionEvent){
