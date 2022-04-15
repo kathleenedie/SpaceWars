@@ -247,7 +247,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             if(!paused) {
                 canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY(), paint);
                 if (bullet.getStatus()) {
-                    canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/6*4, paint);
+                    canvas.drawBitmap(bullet.getBitmap(), bullet.getX(), bullet.getY(), paint);
                     }
                 for (int i = 0; i < numAliens; i++) {
                     if (aliens[i].getIsVisible()) {
@@ -322,8 +322,10 @@ public class SpaceGameView extends SurfaceView implements Runnable{
                     if(motionEvent.getY() < screenY - screenY / 4) {
                         // Shots fired
                         bullet.setMovementState(bullet.UP);
-                        bullet.shoot(spaceShip.getX()+
-                                spaceShip.getLength()/2,screenY,bullet.UP);
+                        bullet.shoot(
+                                spaceShip.getX()/2+
+                                spaceShip.getLength()/2,
+                                spaceShip.getY()+ spaceShip.getHeight(),bullet.UP);
                     }
                 break;
                 // Player has removed finger from screen

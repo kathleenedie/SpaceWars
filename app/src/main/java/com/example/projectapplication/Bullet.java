@@ -7,7 +7,7 @@ import android.graphics.RectF;
 
 public class Bullet {
 
-    RectF rect;
+    private RectF rect;
     private Bitmap bitmap;
     private Bitmap bitmapbullet;
 
@@ -36,7 +36,7 @@ public class Bullet {
         x = screenX;
         y = screenY;
 
-        BulletSpeed = 500;
+        BulletSpeed = 750;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
 
         // stretch the bitmap to a size appropriate for the screen resolution
