@@ -44,7 +44,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
     // Game is paused at the start
     private boolean paused = true;
 
-    // Indicate the player has won
+    // Indicates the player has won
     private boolean won = false;
 
     // A Canvas and a Paint object
@@ -113,7 +113,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         numAliens = 0;
         for(int column = 0; column < 6; column++) {
             for(int row = 0; row < 5; row ++ ){
-            //Log.i("alien spawning", "alien being spawned");
+            Log.i("alien spawning", "alien being spawned");
             aliens[numAliens] = new Alien(context, -1, column, screenX, screenY);
             numAliens++;}
         }
@@ -161,7 +161,9 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             bullet.setInactive();
         }
 
-        // call alien update action
+        // call alien update action.
+        // Detect if alien has reached the bottom of the screen and set to STOPPED and invisible.
+        // Track number of live aliens so when all dead with lives still in tact player has won.
         int liveAliens = 0;
         for(int i = 0; i < numAliens; i++) {
             if (aliens[i].getIsVisible()) {
@@ -279,9 +281,6 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
     }}
-
-
-
 
     // If SpaceGameActivity is paused/stopped
     // shutdown our thread.
