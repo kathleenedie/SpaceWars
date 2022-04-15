@@ -147,7 +147,14 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         spaceShip.update(fps);
 
         // call bullet update action
-        bullet.update(fps);
+        if(bullet.getStatus()){
+                bullet.update(fps);
+        }
+
+        // Has the player's bullet hit the top of the screen
+        if(bullet.getRect().bottom < 0){
+            bullet.setInactive();
+        }
 
         // call alien update action
         for(int i = 0; i < numAliens; i++) {
@@ -157,10 +164,9 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             if (aliens[i].getY() > screenY - aliens[i].getHeight() || aliens[i].getY() < 0){
                 aliens[i].setMovementState(alien.STOPPED);
                 aliens[i].setInvisible();
-                while(lives > 0){
+                if(lives > 0){
                     lives--;
                 }
-                Log.i("Alien state is:", "stopped");
             }
         }
 
@@ -176,8 +182,13 @@ public class SpaceGameView extends SurfaceView implements Runnable{
                 }
             }
         }
-    }
 
+        if(lives == 0){
+            paused = true;
+            lives = 3;
+            score = 0;
+            initLevel();}
+    }
 
     private void draw(){
         // Make sure our drawing surface is valid or we crash
@@ -235,7 +246,9 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             // Draw game play characters
             if(!paused) {
                 canvas.drawBitmap(spaceShip.getBitmap(), spaceShip.getX(), spaceShip.getY(), paint);
-                canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/6*4, paint);
+                if (bullet.getStatus()) {
+                    canvas.drawBitmap(bullet.getBitmap(), bullet.getX()/2-bullet.getLength()/2, bullet.getY()/6*4, paint);
+                    }
                 for (int i = 0; i < numAliens; i++) {
                     if (aliens[i].getIsVisible()) {
                         //Log.i("Alien", "Alien being rendered");
@@ -291,15 +304,15 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             // Player has touched the screen
             case MotionEvent.ACTION_DOWN:
 
-                if(getPaused()==true){
-                    setPaused(false);
-                    Log.i("First click", "First click on game resume");
-                }
+//                if(getPaused()==true){
+//                    setPaused(false);
+//                    Log.i("First click", "First click on game resume");
+//                }
+                paused = false;
 
                 if(motionEvent.getY() > screenY - screenY / 4) {
                     if (motionEvent.getX() > screenX / 2) {
                         spaceShip.setMovementState(spaceShip.RIGHT);
-                        spaceShip.update(fps);
                         Log.i("Subsequent click", "right side click");
                     } else {
                         spaceShip.setMovementState(spaceShip.LEFT);
@@ -311,11 +324,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
                         bullet.setMovementState(bullet.UP);
                         bullet.shoot(spaceShip.getX()+
                                 spaceShip.getLength()/2,screenY,bullet.UP);
-                        {
-                            Log.i("Subsequent click", "Bullet click");
-                        }
                     }
-
                 break;
                 // Player has removed finger from screen
             case MotionEvent.ACTION_UP:

@@ -36,7 +36,7 @@ public class Bullet {
         x = screenX;
         y = screenY;
 
-        BulletSpeed = 350;
+        BulletSpeed = 500;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
 
         // stretch the bitmap to a size appropriate for the screen resolution
