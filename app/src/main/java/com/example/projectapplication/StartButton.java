@@ -1,14 +1,9 @@
 package com.example.projectapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
-import android.view.MotionEvent;
-import android.view.SurfaceView;
-import android.view.View;
-import android.widget.Button;
 
 public class StartButton{
 
@@ -16,12 +11,10 @@ public class StartButton{
     private Bitmap bitmap;
     private Bitmap bitmapstart;
 
-    public Bitmap currentBitmap;
     private float height;
     private float length;
     private float x;
     private float y;
-
 
     public StartButton(Context context, int screenX, int screenY){
 

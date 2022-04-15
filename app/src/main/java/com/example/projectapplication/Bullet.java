@@ -22,7 +22,6 @@ public class Bullet {
     public final int UP = 1;
     public final int DOWN = 2;
 
-    ///maybe more movement than this
     private int BulletMoving = STOPPED;
     private boolean isActive;
 
@@ -50,15 +49,13 @@ public class Bullet {
         bitmapbullet = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
         bitmapbullet = Bitmap.createScaledBitmap(bitmapbullet, (int) (length), (int) (height), false);
 
-         currentBitmap = bitmap;
+        currentBitmap = bitmap;
 
     }
 
     public void setMovementState(int state) {
-
         BulletMoving = state;
     }
-
 
     public void update(long fps) {
         if (BulletMoving == UP) {
@@ -70,17 +67,13 @@ public class Bullet {
         rect.bottom = y + height;
         rect.left = x;
         rect.right = x + length;
-
     }
-
-
 
     public RectF getRect(){
         return rect;
     }
 
     public Bitmap getBitmap(){
-
         return bitmap;
     }
 
@@ -112,9 +105,7 @@ public class Bullet {
             isActive = true;
             return true;
         }
-
         // Bullet already active
         return false;
-        
     }}
 

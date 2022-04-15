@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
-import android.util.Log;
 
 import java.util.Random;
 
@@ -21,14 +20,10 @@ public class Alien {
 
     private float alienSpeed;
     public final int STOPPED = 0;
-//    public final int LEFT = 1;
-//    public final int RIGHT = 2;
-//    public final int UP = 3;
     public final int DOWN = 4;
 
-    ///maybe more movement than this
+    // Our Alien is only moving down
     private int alienMoving = DOWN;
-    //private int AlienSpeed;
 
     private boolean isVisible;
 
@@ -46,7 +41,7 @@ public class Alien {
         x = spawner.nextInt(1000);
         y = spawner.nextInt(300);
 
-        alienSpeed = 30;
+        alienSpeed = 40;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.alien);
 
         // stretch the bitmap to a size appropriate for the screen resolution
@@ -54,11 +49,9 @@ public class Alien {
                 (int) (length),
                 (int) (height),
                 false);
-
-        // currentBitmap = bitmap;
     }
 
-     public void setMovementState(int state){
+    public void setMovementState(int state){
           alienMoving = state;
        }
 
@@ -72,7 +65,6 @@ public class Alien {
         rect.bottom = y + height;
         rect.left = x;
         rect.right = x + length;
-
     }
 
     public RectF getRect(){
@@ -80,7 +72,6 @@ public class Alien {
     }
 
     public Bitmap getBitmap(){
-
         return bitmap;
     }
 
@@ -89,17 +80,20 @@ public class Alien {
     }
 
     public float getY() {
-        return y; }
+        return y;
+    }
 
     public float getLength(){
         return length;
     }
 
     public float getHeight() {
-        return height; }
+        return height;
+    }
 
     public boolean getIsVisible(){
-        return isVisible; }
+        return isVisible;
+    }
 
     public void setInvisible(){
         isVisible = false;

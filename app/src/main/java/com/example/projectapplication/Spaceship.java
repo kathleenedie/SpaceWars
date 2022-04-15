@@ -23,12 +23,8 @@ public class Spaceship {
     public final int STOPPED = 0;
     public final int LEFT = 1;
     public final int RIGHT = 2;
-    public final int UP = 3;
-    public final int DOWN = 4;
 
-    ///maybe more movement than this
     private int SpaceShipMoving = STOPPED;
-    private int shipSpeed;
 
     public Spaceship(Context context, int screenX, int screenY){
 
@@ -41,7 +37,6 @@ public class Spaceship {
         y = (screenY/5)*4;
 
         SpaceShipSpeed = 350;
-        //shipSpeed = 350;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipup);
 
         // stretch the bitmap to a size appropriate for the screen resolution
@@ -53,22 +48,12 @@ public class Spaceship {
         bitmapup = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipup);
         bitmapup = Bitmap.createScaledBitmap(bitmapup, (int) (length), (int) (height),false);
 
-        bitmapright = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipright);
-        bitmapright = Bitmap.createScaledBitmap(bitmapright, (int) (length), (int) (height),false);
-
-        bitmapleft = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipleft);
-        bitmapleft = Bitmap.createScaledBitmap(bitmapleft, (int) (length), (int) (height),false);
-
-        bitmapdown = BitmapFactory.decodeResource(context.getResources(), R.drawable.spaceshipdown);
-        bitmapdown = Bitmap.createScaledBitmap(bitmapdown, (int) (length), (int) (height),false);
-
         currentBitmap = bitmap;
     }
 
     public void setMovementState(int state){
         SpaceShipMoving = state;
     }
-
 
     public void update(long fps){
           if(SpaceShipMoving == LEFT){
@@ -77,23 +62,13 @@ public class Spaceship {
            }
             if(SpaceShipMoving == RIGHT){
                 x = x + SpaceShipSpeed / fps;
-                currentBitmap = bitmapright;
-            }
-            if(SpaceShipMoving == UP){
-                y = y - SpaceShipSpeed / fps;
                 currentBitmap = bitmap;
             }
-
-            if(SpaceShipMoving == DOWN){
-                y=y + SpaceShipSpeed / fps;
-                currentBitmap = bitmap;
-           }
 
         rect.top = y;
         rect.bottom = y + height;
         rect.left = x;
         rect.right = x + length;
-
     }
 
 
@@ -117,8 +92,4 @@ public class Spaceship {
     }
 
     public float getHeight() { return height; }
-
-
-
-
 }
