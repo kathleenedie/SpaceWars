@@ -21,14 +21,14 @@ public class Alien {
 
     private float alienSpeed;
     public final int STOPPED = 0;
-    public final int LEFT = 1;
-    public final int RIGHT = 2;
-    public final int UP = 3;
+//    public final int LEFT = 1;
+//    public final int RIGHT = 2;
+//    public final int UP = 3;
     public final int DOWN = 4;
 
     ///maybe more movement than this
     private int alienMoving = DOWN;
-    private int AlienSpeed;
+    //private int AlienSpeed;
 
     private boolean isVisible;
 
@@ -46,7 +46,7 @@ public class Alien {
         x = spawner.nextInt(1000);
         y = spawner.nextInt(300);
 
-        alienSpeed = 100;
+        alienSpeed = 30;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.alien);
 
         // stretch the bitmap to a size appropriate for the screen resolution
@@ -55,7 +55,7 @@ public class Alien {
                 (int) (height),
                 false);
 
-        currentBitmap = bitmap;
+        // currentBitmap = bitmap;
     }
 
      public void setMovementState(int state){
@@ -63,22 +63,9 @@ public class Alien {
        }
 
     public void update(long fps){
-        if(alienMoving == LEFT){
-              x = x - alienSpeed / fps;
-               currentBitmap = bitmap;
-           }
-        if(alienMoving == RIGHT){
-            x = x + alienSpeed / fps;
-            currentBitmap = bitmap;
-        }
-        if(alienMoving == UP){
-            y = y - alienSpeed / fps;
-            currentBitmap = bitmap;
-        }
         if(alienMoving == DOWN){
             y = y + alienSpeed / fps;
             currentBitmap = bitmap;
-
        }
 
         rect.top = y;

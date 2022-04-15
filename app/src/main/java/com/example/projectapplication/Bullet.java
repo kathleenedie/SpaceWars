@@ -7,7 +7,7 @@ import android.graphics.RectF;
 
 public class Bullet {
 
-    private RectF rect;
+    RectF rect;
     private Bitmap bitmap;
     private Bitmap bitmapbullet;
 

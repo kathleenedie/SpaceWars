@@ -19,7 +19,9 @@ import androidx.annotation.Nullable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -41,6 +43,9 @@ public class SpaceGameView extends SurfaceView implements Runnable{
 
     // Game is paused at the start
     private boolean paused = true;
+
+    // Indicate the player has won
+    private boolean won = false;
 
     // A Canvas and a Paint object
     private Canvas canvas;
@@ -106,8 +111,8 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         bullet = new Bullet(context, screenX, screenY);
         alien = new Alien(context, spawner.nextInt(1000), spawner.nextInt(1000), screenX, screenY);
         numAliens = 0;
-        for(int column = spawner.nextInt(10); column < 10; column++) {
-            for(int row = spawner.nextInt(5); row < 5; row ++ ){
+        for(int column = 0; column < 6; column++) {
+            for(int row = 0; row < 5; row ++ ){
             //Log.i("alien spawning", "alien being spawned");
             aliens[numAliens] = new Alien(context, -1, column, screenX, screenY);
             numAliens++;}
@@ -157,17 +162,26 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         }
 
         // call alien update action
+        int liveAliens = 0;
         for(int i = 0; i < numAliens; i++) {
             if (aliens[i].getIsVisible()) {
                 aliens[i].update(fps);
+                liveAliens++;
             }
-            if (aliens[i].getY() > screenY - aliens[i].getHeight() || aliens[i].getY() < 0){
-                aliens[i].setMovementState(alien.STOPPED);
-                aliens[i].setInvisible();
-                if(lives > 0){
-                    lives--;
+            if (aliens[i].getIsVisible()) {
+                if (aliens[i].getY() > screenY - aliens[i].getHeight() || aliens[i].getY() < 0) {
+                    aliens[i].setMovementState(alien.STOPPED);
+                    aliens[i].setInvisible();
+                    if (lives > 0) {
+                        lives--;
+                        liveAliens--;
+                    }
                 }
             }
+        }
+
+        if (liveAliens == 0 && lives > 0){
+                won = true;
         }
 
         //checkCollisions
@@ -256,6 +270,12 @@ public class SpaceGameView extends SurfaceView implements Runnable{
                     }
                 }
             }
+
+            // Message if won
+            if(won){
+                canvas.drawText("You won", canvas.getWidth()/2, canvas.getHeight()/5, paintTitle);
+            }
+
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
     }}
@@ -283,6 +303,11 @@ public class SpaceGameView extends SurfaceView implements Runnable{
         gameThread.start();
     }
 
+    public void setWon(boolean won)
+    {
+        this.won = won;
+    }
+
     public boolean getPaused(){
         return paused;
     }
@@ -304,10 +329,6 @@ public class SpaceGameView extends SurfaceView implements Runnable{
             // Player has touched the screen
             case MotionEvent.ACTION_DOWN:
 
-//                if(getPaused()==true){
-//                    setPaused(false);
-//                    Log.i("First click", "First click on game resume");
-//                }
                 paused = false;
 
                 if(motionEvent.getY() > screenY - screenY / 4) {
@@ -323,7 +344,7 @@ public class SpaceGameView extends SurfaceView implements Runnable{
                         // Shots fired
                         bullet.setMovementState(bullet.UP);
                         bullet.shoot(
-                                spaceShip.getX()/2+
+                                spaceShip.getX()+
                                 spaceShip.getLength()/2,
                                 spaceShip.getY()+ spaceShip.getHeight(),bullet.UP);
                     }
